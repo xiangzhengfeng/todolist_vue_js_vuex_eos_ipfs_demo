@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="NOTC">
+    <meta name="author" content="MingYuan">
+	<meta name="generator" content="Notepad++">
+    <link rel="icon" href="img/logo.png">
+
+<title>交易成功</title>
+           
+    <link rel="stylesheet" href="css/bootstrap.min.css">                                      
+    <link rel="stylesheet" href="css/magnific-popup.css">                                     
+    <link rel="stylesheet" href="css/templatemo-style.css">   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.3.7/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="static/css/style.css?_=1.0.5">
+    <link rel="stylesheet" href="editor.md/css/editormd.min.css" />
+    <link rel="stylesheet" href="editor.md/css/editormd.preview.min.css" />
+    <link href="css/airdrop.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+    <link href="css/core.css" rel="stylesheet" type="text/css">
+    <link href="css/components.css" rel="stylesheet" type="text/css">
+    <link href="css/colors.css" rel="stylesheet" type="text/css">
+    <link href="css/summernote.css" rel="stylesheet" type="text/css">
+    <link href="css/owl.carousel.min.css" rel="stylesheet" type="text/css">
+    <link href="css/owl.theme.default.min.css" rel="stylesheet" type="text/css">
+                                  
+    <script type="text/javascript" src="./jquery-3.3.1.min.js"></script> 
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.2.6/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-router@3.0.1/dist/vue-router.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.3.7/lib/index.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/nebPay.js"></script>
+    <script src="js/nebulas.js"></script>
+    <script src="js/nebConfig.js"></script>
+    <script src="js/mustache.min.js"></script>
+    <script src="js/buyConfig.js"></script>
+    <script src="js/bootstrap.min2.js"></script>
+    <script src="js/getWallectInfo.js?_=201805241200"></script>
+
+  </head> 
+  
+    
+   
+<body id="top" class="page-2">
+<div class="tm-navbar-container tm-navbar-container-dark">
+
+	<nav class="navbar navbar-full navbar-fixed-top bg-inverse">
+		<button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar">
+			&#9776;
+		</button>
+		    <div class="collapse navbar-toggleable-sm" id="tmNavbar">
+			    <ul class="nav navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" href="index.html">首页</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" >出售</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="buyadvertising.html">发布购买广告</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link external" href="interpretation.html">使用说明</a>
+					</li>
+					<li id="app" class="nav-item">
+					    <a class="nav-link" >账户信息:{{balance}} NAS</a>
+					</li>					
+				</ul>
+			</div>
+	    </div>  
+   </div>
+	
+	  <section class="referrer-section" style="margin-top: 10px"> 
+	    <div class="container">
+          <div class="card-deck mb-3 text-center">
+            <div class="card mb-4 box-shadow">  
+			  <div class="card-body">
+			    <div style="text-align: center">
+		          <div class="tm-section" id="buys">		
+                  </div>  
+                </div> 				
+	          </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    <script>
+      "use strict";
+      var nebulas = require("nebulas");
+      var Account = nebulas.Account;
+      var neb = new nebulas.Neb();
+      neb.setRequest(new nebulas.HttpRequest(rpcURL));
+	  var serialNumber;
+
+      var from = Account.NewAccount().getAddressString();
+      var length = 0;
+      var value = "0";
+      var nonce = "0";
+      var gas_price = "1000000";
+      var gas_limit = "2000000";
+      var callFunction = "length";
+      var callArgs = ""; 
+      var contract = {
+        "function": callFunction,
+        "args": callArgs
+      };
+
+      neb.api.call(from, dappcontractAddress, value, nonce, gas_price, gas_limit, contract).then(function (resp) {
+        if(resp.result > 0){
+          length = resp.result;
+          for(var i = 0; i < resp.result; i++){
+		   if(transactionsuccess.includes(i)) {
+            callFunction = "index";
+            callArgs = "[" + i + "]"; 
+            contract = {
+              "function": callFunction,
+              "args": callArgs
+            };
+            neb.api.call(from, dappcontractAddress, value, nonce, gas_price, gas_limit, contract).then(function (resp){
+              addTransaction(resp);
+              });
+            }
+		  }
+        } 
+      });
+	  	 
+      function addTransaction(resp){
+          var result = resp.result; 
+          try{
+            result = JSON.parse(result);
+          }catch (err){
+          }
+            var skeleton;
+            var data;
+			skeleton='<div class="col-md-4 margin-bottom-sm-3"><div class="tm-3-col-box"><div class="tm-description-box" id=buys><h2 class="card-title pricing-card-title"><br><a>交易成功明细</a><br></h2><h5 class="card-title pricing-card-title"><br><a>成交价格：{{buyPrice}}CNY</a><br><a>成交数量：{{buyQuantity}}NAS</a><br><a></a><br></h5><button type="button" class="btn btn-lg btn-block  btn-default tm-normal-btn tm-blue-btn" id="buyss{{buyIndex}}" onclick="receive({{buyIndex}})" value="{{eligible}}">交易成功</button></div></div></div></div></div>';              			            
+               data = { buyPrice: result.buyPrice, buyQuantity: result.buyQuantity, contactWay: result.contactWay, paymentAccount: result.paymentAccount, buyer: result.buyer, buyIndex: result.index};           
+			  
+            var html = Mustache.to_html(skeleton, data);
+            $("#buys").append(html);                
+      }   
+	  
+	  var NebPay = require("nebpay");    
+      var nebPay = new NebPay();
+      var serialNumber;
+
+      function receive(index){
+        if(checkNASWallet()){
+		$('#affirmSale').modal('show');
+		}
+      }
+	 
+      function getTransactionReceipt(hash, callback){
+        $.post(rpcURL + '/v1/user/getTransactionReceipt', JSON.stringify({
+          "hash": hash
+        }), function (resp) {
+          callback(resp)
+        })
+      }
+	  
+	  
+
+      function recheckTransactionReceipt(hash, cb) {
+        var task = setInterval(function () {
+          getTransactionReceipt(hash, function (resp) {
+            var status = resp.result.status;
+            if(status == 1){
+              clearInterval(task);
+              cb();
+            }
+          })
+        }, 1000);
+      }
+	  
+	  function checkNASWallet(){
+        if (typeof (webExtensionWallet) === "undefined") {
+          $(document).ready(function(){
+            $("#noWallet").modal('show');
+          });
+          return false;
+        }
+        return true;
+      }	 
+    </script>   
+  
+  <div id="affirmSale" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">友情提示！</h4>
+        </div>
+        <div class="modal-body">
+          <p>非常抱歉，交易已经终止，请前往正在交易页面进行交易！<a href="transactioning.html" target="_blank">交易链接</a></div>
+        <div class="modal-footer"  style="padding-top: 10px">
+          <br>
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+         </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  
+  <div id="noWallet" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">友情提示！</h4>
+        </div>
+        <div class="modal-body">
+          <p>你没有安装星云钱包，请使用谷歌浏览器安装星云钱包插件： <a href="https://github.com/nebulasotc/nasqianbao" target="_blank">钱包链接</a></p>
+        </div>
+        <div class="modal-footer"  style="padding-top: 10px">
+          <br>
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+ 
+      <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+          <div class="col-6 col-md">
+            <h5>友情链接</h5>
+            <ul class="list-unstyled text-small">
+              <li><a class="text-muted" href="https://nebulas.io" target="_blank">星云官网</a></li>
+              <li><a class="text-muted" href="https://explorer.nebulas.io" target="_blank">星云区块浏览器</a></li>
+              <li><a class="text-muted" href="https://github.com/ChengOrangeJu/WebExtensionWallet" target="_blank">星云钱包插件</a></li>
+              <li><a class="text-muted" href="https://incentive.nebulas.io/cn/signup.html?invite=QIdur" target="_blank">我也要开发</a></li>
+			  <li><a class="text-muted" href="https://blog.csdn.net/lc326514244/article/details/80347136" target="_blank">最全开发教程</a></li>
+              <li><a class="text-muted" href="https://blog.csdn.net/wingichoy/article/details/80291665" target="_blank">真正零门槛入门</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md">
+            <h5>其他优质星云DAPP链接</h5>
+            <ul class="list-unstyled text-small">
+			<li><a class="text-muted" href="https://bbs.forfunapp.com/" target="_blank">链社区-基于星云链的微论坛</a></li>
+			<li><a class="text-muted" href="http://nebulas.cool" target="_blank">星云链DApp商店</a></li>
+			<li><a class="text-muted" href="http://cellevo.net/" target="_blank">细胞进化</a></li>
+			<li><a class="text-muted" href="http://xu.renmaixifen.com/" target="_blank">NAS手气红包</a></li>
+			<li><a class="text-muted" href="https://nasdrop.info/" target="_blank">星云空投</a></li>
+			<li><a class="text-muted" href="http://nas.lubi.ren/" target="_blank">LuckyBlock</a></li>
+			<li><a class="text-muted" href="http://sunnypickle.coding.me/nebulasgame/" target="_blank">星云修仙传</a></li>
+			<li><a class="text-muted" href="http://nasweb.top/" target="_blank">2Dspace-Estate</a></li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+  </body>
+</html>
