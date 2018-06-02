@@ -136,8 +136,8 @@
             $('#checkaddBuy').modal('show');
             return;
             }
-			
-			if (app.balance<=0){
+			//判断账户余额大小设置相应条件
+			if (app.balance<0){
 			  $('#checkBalance').modal('show');
             return;
 			}
