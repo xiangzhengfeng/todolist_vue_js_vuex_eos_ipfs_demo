@@ -110,7 +110,7 @@
 		<div class="col-md-12">
 		  <div class="col-md-12">
 				<p class="text-left tm-description"  style="margin-top: 40px">
-					本DAPP遵守各个国家法律，主要开发目的用于体验NAS场外交易。
+					本DAPP遵守各个国家法律，主要开发目的用于NAS场外交易。
 				</p>
 				<p class="text-left tm-description" >
 				Translation from youdao online translation, if the translation is not accurate cause you
@@ -135,27 +135,26 @@
 
       $("#addbuy").click(function() {
           if(checkWallet()){
-		    if (!$("#buyPrice").val() || !$("#buyQuantity").val() || !$("#buyer").val()) {
+		    if (!$("#buyPrice").val() || !$("#buyQuantity").val() || !$("#buyer").val() || !$("#contactWay").val() || !$("#buyer").val()) {
             $('#checkaddBuy').modal('show');
             return;
             }
 			//判断账户余额大小设置相应条件
-			if (app.balance<0){
+			/*if (app.balance < $("#buyQuantity").val()){
 			  $('#checkBalance').modal('show');
             return;
-			}
+			}*/
 			
               var to =  dappcontractAddress;
               var value = "0";
               var callFunction = "addBuy";
               var callArgs = "[\"" + $("#buyPrice").val() + "\",\"" +$("#buyQuantity").val() + "\",\"" +$("#contactWay").val() + "\",\"" +$("#baymentAccount").val() + "\",\"" +$("#buyer").val() + "\"]";
               serialNumber = nebPay.call(to, value, callFunction, callArgs, {
+			  callback:"https://pay.nebulas.io/api/mainnet/pay",
                 listener: function (resp) {
                   if(resp !== 'Error: Transaction rejected by user'){
                     $('#packing').modal('show');
-                  }
-
-                  var hash = resp.txhash;
+					var hash = resp.txhash;
                   recheckTransaction(hash, function () {
                     $('#packing').modal('hide');
                     $('#packingSuccess').modal('show');
@@ -164,7 +163,11 @@
                       window.location.href = 'transactioning.html';
                     }
                     var wait = setInterval(noWait, 2000);
+					callback && callback(resp);
                   })
+                  }else {
+                    $('#packingFailur').modal('show');
+                }                
                 }
               });
           }
@@ -229,7 +232,7 @@
           <h4 class="modal-title">友情提示！</h4>
         </div>
         <div class="modal-body">
-          <p>为防止脚本恶意发布大量广告来获取高估值的NOTC，特设置金额低于10NAS无法发布广告。因为你的账户余额不足10NAS，所以无法发布。你可以增加账户余额或者通过邀请其他人来获得更多空投！</p>
+          <p></p>
         </div>
         <div class="modal-footer"  style="padding-top: 10px">
           <br>
@@ -281,6 +284,23 @@
           </div>
           <div class="modal-body">
             <p>恭喜你！交易打包成功！</p>
+          </div>
+          <div class="modal-footer"  style="padding-top: 10px">
+            <br>
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+	
+	<div id="packingFailur" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">友情提示！</h4>
+          </div>
+          <div class="modal-body">
+            <p>你已取消交易！</p>
           </div>
           <div class="modal-footer"  style="padding-top: 10px">
             <br>
