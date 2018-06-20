@@ -1,3 +1,2 @@
-var airdropreferrerlink = [0];
-var transactionfailure = [1,3];
-var transactionsuccess = [0];
+var transactionfailure = [0,1,2,3,4,6,9,7];
+var transactionsuccess = [5];
