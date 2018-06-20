@@ -150,7 +150,7 @@
           length = resp.result;
           for(var i = 0; i < resp.result; i++){
 		      if(transactionfailure.includes(i)) continue;
-			  if(airdropreferrerlink.includes(i)) continue;
+			  if(transactionsuccess.includes(i)) continue;
             callFunction = "index";
             callArgs = "[" + i + "]"; 
             contract = {
@@ -211,11 +211,16 @@
             result = JSON.parse(result);			
 			var skeleton;
             var data;
+			for(var i = 0; i < 100; i++){
+			  if(transactionfailure.includes(i)) continue;
+			  if(transactionsuccess.includes(i)) continue;
+			  if( i == result.index){
 			 skeleton='<h2 class="card-title pricing-card-title"><br><a>搜索结果</a><br></h2><h3 class="card-title pricing-card-title"><br><a>他是平台第{{buyIndex}}位土豪收购方</a><br></h3><h5 class="card-title pricing-card-title"><br><a>收购价格：{{buyPrice}}CNY</a><br><a>收购数量：{{buyQuantity}}NAS</a><br><a>联系方式及支付方式需点击确认出售方可看见</a><br><a>接收地址：{{buyer}}</a><br></h5><button type="button" class="btn btn-default tm-normal-btn tm-green-btn" id="buy{{buyIndex}}" onclick="receive({{buyIndex}})" value="{{eligible}}">确认出售</button>';              			            
-             data = { buyPrice: result.buyPrice, buyQuantity: result.buyQuantity, contactWay: result.contactWay, paymentAccount: result.paymentAccount, buyer: result.buyer, buyIndex: result.index};           
-			
+             data = { buyPrice: result.buyPrice, buyQuantity: result.buyQuantity, contactWay: result.contactWay, paymentAccount: result.paymentAccount, buyer: result.buyer, buyIndex: result.index};           			
             var html = Mustache.to_html(skeleton, data);
-            $("#aloneSearch").append(html);
+            $("#aloneSearch").append(html);		
+                  }			
+			}
             }).catch(function (err) {
             console.log("error :" + err.message);
         })
