@@ -167,11 +167,15 @@
                   })
                   }else {
                     $('#packingFailur').modal('show');
-                }                
+                }
+
+                  
                 }
               });
           }
       });
+	  
+
 
       function getTransaction(hash, callback){
         $.post(rpcURL + '/v1/user/getTransaction', JSON.stringify({
@@ -232,7 +236,7 @@
           <h4 class="modal-title">友情提示！</h4>
         </div>
         <div class="modal-body">
-          <p></p>
+          <p>为防止脚本恶意发布大量广告来获取高估值的NOTC，特设置金额低于10NAS无法发布广告。因为你的账户余额不足10NAS，所以无法发布。你可以增加账户余额或者通过邀请其他人来获得更多空投！</p>
         </div>
         <div class="modal-footer"  style="padding-top: 10px">
           <br>
