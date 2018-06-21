@@ -25,6 +25,7 @@ var nasApi = neb.api;
 var nebPay = new NebPay();
 var cls, app, nebState;
 var dappcontractAddress = "n1qMHuhJ7N5faxAdbv1itzzkKpWrbCjZLEg";
+var dappcontractsaleAddress = "n1ronusSjefTT3fWB7YMzJR4TBhzicrHvxn";
 
 function mylog() {    
 }
