@@ -97,7 +97,6 @@
 
      <script>
       "use strict";
-	  var dappContactAddress = "n1ronusSjefTT3fWB7YMzJR4TBhzicrHvxn";
       var nebulas = require("nebulas");
       var Account = nebulas.Account;
       var neb = new nebulas.Neb();
@@ -115,7 +114,7 @@
             return;
         }
 		}
-        var to = dappContactAddress;
+        var to = dappcontractsaleAddress;
         var value = "0";
         var callFunction = "save";
         var callArgs = "[\"" + $("#input_car").val() + "\",\"none\"]";
