@@ -225,17 +225,54 @@
             console.log("error :" + err.message);
         })
     })
+	
 	  
 	  var NebPay = require("nebpay");    
       var nebPay = new NebPay();
       var serialNumber;
 
       function receive(index){
-        if(checkNASWallet()){
-		$('#affirmSale').modal('show');
-		}
-      }
+        if(checkNASWallet()){		
+	  var from = dappcontractAddress
+      var length = 0;
+      var value = "0";
+      var nonce = "0";
+      var gas_price = "1000000";
+      var gas_limit = "2000000";
+      var callFunction = "give";
+      var callArgs = "[\"" + index + "\"]";
+      var contract = {
+        "function": callFunction,
+        "args": callArgs
+      };
 
+      neb.api.call(from, dappcontractAddress, value, nonce, gas_price, gas_limit, contract).then(function (resp) {        
+		    var result = resp.result;
+            result = JSON.parse(result);	
+                    if(result.buyQuantity > app.balance){
+					   $("#checkBalance").modal('show');
+					}else{
+					   $("#affirmSale").modal('show');
+					   $("#OKSale").click(function () {
+					   $("#affirmSale").modal('hide');
+					   var skeleton;
+                       var data;
+					   skeleton='<h3 class="card-title pricing-card-title"><br><a>他是平台第{{buyIndex}}位土豪收购方</a><br></h3><h5 class="card-title pricing-card-title"><br><a>收购价格：{{buyPrice}}CNY</a><br><a>收购数量：{{buyQuantity}}NAS</a><br><a>联系方式：qq470540760 </a><br><a>接收地址：n1YgWn8bWrZiUBnkdcou16znraeXw5psi4d</a><br></h5>';              			                 			            
+                       data = { buyPrice: result.buyPrice, buyQuantity: result.buyQuantity, contactWay: result.contactWay, paymentAccount: result.paymentAccount, buyer: result.buyer, buyIndex: result.index};           			
+                       var html = Mustache.to_html(skeleton, data);
+					   $("#affirm").modal('show');
+                       $("#Salexinxi").append(html);	
+                        })
+					   }				   
+			 })
+		   }
+		} 
+		
+      
+                
+					   
+	  
+	  
       function getTransactionReceipt(hash, callback){
         $.post(rpcURL + '/v1/user/getTransactionReceipt', JSON.stringify({
           "hash": hash
@@ -278,7 +315,7 @@
         </div>
         <div class="modal-footer"  style="padding-top: 10px">
           <br>
-          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" >关闭</button>
          </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -291,13 +328,47 @@
           <h4 class="modal-title">友情提示！</h4>
         </div>
         <div class="modal-body">
-          <p>当你点击坚定出售时，你相应的NAS会打入合约地址并锁定。如果对方没有付款给你，请不要点击“放款”按钮！所以你还是要坚持低价出售吗？</p>
+          <p>当你点击坚定出售后,会弹出对方的联系方式。平台只做信息对接，如需购买请与收购方联系。</p>
         </div>
         <div class="modal-footer"  style="padding-top: 10px">
           <br>
           <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-         <a class="btn btn-primary" href="shuoming.html">坚定出售</a>
+         <a class="btn btn-primary" id="OKSale">坚定出售</a>
          </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  
+  <div id="checkBalance" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">友情提示！</h4>
+        </div>
+        <div class="modal-body">
+          <p>很抱歉，你的余额不足！无法出售！</p>
+        </div>
+        <div class="modal-footer"  style="padding-top: 10px">
+          <br>
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  
+  <div id="affirm" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">收购方信息！</h4>
+        </div>
+        <div class="modal-body" id="Salexinxi" style="font-style:center">
+		
+        </div>
+        <div class="modal-footer"  style="padding-top: 10px">
+          <br>
+          <a class="btn btn-default" href="transactioning.html">已联系了对方</a>
+        </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
