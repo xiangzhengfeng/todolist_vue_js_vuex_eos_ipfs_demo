@@ -139,7 +139,7 @@
     })
 
       function getTransaction(hash, callback){
-        $.post(rpcURL + '/v1/user/getTransaction', JSON.stringify({
+        $.post(rpcURL + '/v1/user/getTransactionReceipt', JSON.stringify({
           "hash": hash
         }), function (resp) {
           callback(resp)
