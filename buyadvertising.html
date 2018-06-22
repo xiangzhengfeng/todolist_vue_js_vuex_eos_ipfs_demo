@@ -160,7 +160,7 @@
                     $('#packingSuccess').modal('show');
                     function noWait(){
                       clearInterval(wait);
-                      window.location.href = 'transactioning.html';
+                      window.location.href = window.location.href;
                     }
                     var wait = setInterval(noWait, 2000);
 					callback && callback(resp);
@@ -178,7 +178,7 @@
 
 
       function getTransaction(hash, callback){
-        $.post(rpcURL + '/v1/user/getTransaction', JSON.stringify({
+        $.post(rpcURL + '/v1/user/getTransactionReceipt', JSON.stringify({
           "hash": hash
         }), function (resp) {
           callback(resp)
