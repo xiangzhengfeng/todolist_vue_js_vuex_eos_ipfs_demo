@@ -151,6 +151,7 @@
           for(var i = 0; i < resp.result; i++){
 		      if(transactionfailure.includes(i)) continue;
 			  if(transactionsuccess.includes(i)) continue;
+		  if(transactionhide.includes(i)) continue;
             callFunction = "index";
             callArgs = "[" + i + "]"; 
             contract = {
