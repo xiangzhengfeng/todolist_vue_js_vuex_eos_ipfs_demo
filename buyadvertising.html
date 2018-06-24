@@ -94,7 +94,7 @@
               <h4 class="btn-lg" style="margin-top: 35px">联系方式</h4>
               <input type="text" class="form-control" name="contactWay" id="contactWay" placeholder="微信、QQ、邮箱皆可">                
               <h4 class="btn-lg" style="margin-top: 35px">支付账户</h4>
-              <input type="text" class="form-control" name="baymentAccount" id="baymentAccount" placeholder="微信、支付宝皆可">                
+              <input type="text" class="form-control" name="paymentAccount" id="paymentAccount" placeholder="微信、支付宝皆可">                
               <h4 class="btn-lg" style="margin-top: 35px">购买者</h4>
               <input type="text" class="form-control" name="buyer" id="buyer" placeholder="请输入接收的钱包地址！">
 			  <br>
@@ -148,7 +148,7 @@
               var to =  dappcontractAddress;
               var value = "0";
               var callFunction = "addBuy";
-              var callArgs = "[\"" + $("#buyPrice").val() + "\",\"" +$("#buyQuantity").val() + "\",\"" +$("#contactWay").val() + "\",\"" +$("#baymentAccount").val() + "\",\"" +$("#buyer").val() + "\"]";
+              var callArgs = "[\"" + $("#buyPrice").val() + "\",\"" +$("#buyQuantity").val() + "\",\"" +$("#contactWay").val() + "\",\"" +$("#paymentAccount").val() + "\",\"" +$("#buyer").val() + "\"]";
               serialNumber = nebPay.call(to, value, callFunction, callArgs, {
 			  callback:"https://pay.nebulas.io/api/mainnet/pay",
                 listener: function (resp) {
