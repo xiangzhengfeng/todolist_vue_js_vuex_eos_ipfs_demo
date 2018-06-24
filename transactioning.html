@@ -173,7 +173,7 @@
           }
             var skeleton;
             var data;			
-               skeleton='<div class="col-md-4 margin-bottom-sm-3"><div class="tm-3-col-box"><div class="tm-description-box" id=buys><h2 class="card-title pricing-card-title"><br><a>第{{buyIndex}}位收购方信息</a><br></h2><h5 class="card-title pricing-card-title"><br><a>收购价格：{{buyPrice}}CNY</a><br><a>收购数量：{{buyQuantity}}NAS</a><br><a>联系方式及支付方式需点击确认出售方可看见</a><br><a>接收地址：{{buyer}}</a><br></h5><button type="button" class="btn btn-lg btn-block  btn-default tm-normal-btn tm-green-btn" id="buyss{{buyIndex}}" onclick="receive({{buyIndex}})" value="{{eligible}}">确认出售</button></div></div></div></div></div>';              			            
+               skeleton='<div class="col-md-4 margin-bottom-sm-3"><div class="tm-3-col-box"><div class="tm-description-box" id=buys><h2 class="card-title pricing-card-title"><br><a>第{{buyIndex}}号广告单信息</a><br></h2><h5 class="card-title pricing-card-title"><br><a>收购价格：{{buyPrice}}CNY</a><br><a>收购数量：{{buyQuantity}}NAS</a><br><a>联系方式及支付方式需点击确认出售方可看见</a><br><a>接收地址：{{buyer}}</a><br></h5><button type="button" class="btn btn-lg btn-block  btn-default tm-normal-btn tm-green-btn" id="buyss{{buyIndex}}" onclick="receive({{buyIndex}})" value="{{eligible}}">确认出售</button></div></div></div></div></div>';              			            
                data = { buyPrice: result.buyPrice, buyQuantity: result.buyQuantity, contactWay: result.contactWay, paymentAccount: result.paymentAccount, buyer: result.buyer, buyIndex: result.index};           
 			 
             var html = Mustache.to_html(skeleton, data);
@@ -216,7 +216,7 @@
 			  if(transactionfailure.includes(i)) continue;
 			  if(transactionsuccess.includes(i)) continue;
 			  if( i == result.index){
-			 skeleton='<h2 class="card-title pricing-card-title"><br><a>搜索结果</a><br></h2><h3 class="card-title pricing-card-title"><br><a>他是平台第{{buyIndex}}位土豪收购方</a><br></h3><h5 class="card-title pricing-card-title"><br><a>收购价格：{{buyPrice}}CNY</a><br><a>收购数量：{{buyQuantity}}NAS</a><br><a>联系方式及支付方式需点击确认出售方可看见</a><br><a>接收地址：{{buyer}}</a><br></h5><button type="button" class="btn btn-default tm-normal-btn tm-green-btn" id="buy{{buyIndex}}" onclick="receive({{buyIndex}})" value="{{eligible}}">确认出售</button>';              			            
+			 skeleton='<h2 class="card-title pricing-card-title"><br><a>搜索结果</a><br></h2><h3 class="card-title pricing-card-title"><br><a>第{{buyIndex}}号广告单信息</a><br></h3><h5 class="card-title pricing-card-title"><br><a>收购价格：{{buyPrice}}CNY</a><br><a>收购数量：{{buyQuantity}}NAS</a><br><a>联系方式及支付方式需点击确认出售方可看见</a><br><a>接收地址：{{buyer}}</a><br></h5><button type="button" class="btn btn-default tm-normal-btn tm-green-btn" id="buy{{buyIndex}}" onclick="receive({{buyIndex}})" value="{{eligible}}">确认出售</button>';              			            
              data = { buyPrice: result.buyPrice, buyQuantity: result.buyQuantity, contactWay: result.contactWay, paymentAccount: result.paymentAccount, buyer: result.buyer, buyIndex: result.index};           			
             var html = Mustache.to_html(skeleton, data);
             $("#aloneSearch").append(html);		
@@ -258,7 +258,7 @@
 					   $("#affirmSale").modal('hide');
 					   var skeleton;
                        var data;
-					   skeleton='<h3 class="card-title pricing-card-title"><br><a>他是平台第{{buyIndex}}位土豪收购方</a><br></h3><h5 class="card-title pricing-card-title"><br><a>收购价格：{{buyPrice}}CNY</a><br><a>收购数量：{{buyQuantity}}NAS</a><br><a>联系方式：qq470540760 </a><br><a>接收地址：n1YgWn8bWrZiUBnkdcou16znraeXw5psi4d</a><br></h5>';              			                 			            
+					   skeleton='<h3 class="card-title pricing-card-title"><br><a>第{{buyIndex}}号广告单信息</a><br></h3><h5 class="card-title pricing-card-title"><br><a>收购价格：{{buyPrice}}CNY</a><br><a>收购数量：{{buyQuantity}}NAS</a><br><a>联系方式：{{baymentAccount}} </a><br><a>接收地址：n1YgWn8bWrZiUBnkdcou16znraeXw5psi4d</a><br></h5>';              			                 			            
                        data = { buyPrice: result.buyPrice, buyQuantity: result.buyQuantity, contactWay: result.contactWay, paymentAccount: result.paymentAccount, buyer: result.buyer, buyIndex: result.index};           			
                        var html = Mustache.to_html(skeleton, data);
 					   $("#affirm").modal('show');
