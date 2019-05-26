@@ -1,6 +1,5 @@
 import { Api, JsonRpc } from 'eosjs'
 const { JsSignatureProvider } = require('eosjs/dist/eosjs-jssig');
-
 /* 
 import ScatterJS from 'scatterjs-core'
 import ScatterEOS from 'scatterjs-plugin-eosjs2' */

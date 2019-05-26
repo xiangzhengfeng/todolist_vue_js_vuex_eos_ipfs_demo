@@ -1,32 +1,80 @@
-import { HANDLE_ADD, HANDLE_DONE, GET_TAB_LIST, GET_TAB_ID } from '../mutation-types'
+import { HANDLE_TABLE_DATA, HANDLE_TAB_LIST, GET_TAB_LIST, HANDLE_TAB_ID, GET_TABLE_DATA_LIST } from '../mutation-types'
+import { add, done, remove } from "../../api/transact"
+import { getTableData } from "../../api/fetch"
+import { toast } from "../../api/toast"
+
 const List = {
   state: {
     list: [],
     tabList: [],
-    tab: 0
+    tab: 0,
+    loading: false
   },
 
   actions: {
-    handleAdd({ commit, dispatch, state }, value) {
-      let item = {
-        value,
-        isDone: false,
-        id: new Date().getTime()
+    async getTableDataList({ dispatch, commit, state }) {
+      toast.show()
+      const res = await getTableData('todotable');
+      if (res.rows) {
+        let list = []
+        res.rows.filter((item, index) => {
+          list[index] = {
+            id: item.id,
+            key: item.time,
+            value: item.content,
+            isDone: item.is_done
+          }
+        });
+        toast.hide()
+        commit(HANDLE_TABLE_DATA, list)
+      } else {
+        toast.dialog("加载区块链数据失败，请检查网络后再刷新！").then(() => {
+          commit(HANDLE_TABLE_DATA, [])
+        })
       }
-      commit(HANDLE_ADD, item)
       dispatch(GET_TAB_LIST, state.tab)
     },
-    handleDone({ commit, state, dispatch }, id) {
-      let index = null
-      let list = [...state.list]
-      list.map((item, i) => {
-        if (item.id === id) index = i
-      })
-      list[index].isDone ? list.splice(index, 1) : list[index].isDone = !list[index].isDone
-      commit(HANDLE_DONE, list)
-      dispatch(GET_TAB_LIST, state.tab)
+
+    async handleAdd({ dispatch }, value) {
+      toast.info()
+      const res = await add(value)
+      toast.hide()
+      if (res.transaction_id) {
+        toast.dialog("新增成功！交易哈希：\n" + res.transaction_id).then(() => {
+          dispatch(GET_TABLE_DATA_LIST)
+        })
+      } else {
+        toast.dialog("新增事项失败，请重新添加！")
+      }
     },
-    getTabList({ commit, state }, id) {
+
+    async handleDone({ dispatch }, id) {
+      toast.info()
+      const res = await done(id)
+      toast.hide()
+      if (res.transaction_id) {
+        toast.dialog("已完成！交易哈希：\n" + res.transaction_id).then(() => {
+          dispatch(GET_TABLE_DATA_LIST)
+        })
+      } else {
+        toast.dialog("操作失败，请重新完成该事项！")
+      }
+    },
+
+    async handleDelete({ dispatch }, id) {
+      toast.info()
+      const res = await remove(id)
+      toast.hide()
+      if (res.transaction_id) {
+        toast.dialog("已删除！交易哈希：\n" + res.transaction_id).then(() => {
+          dispatch(GET_TABLE_DATA_LIST)
+        })
+      } else {
+        toast.dialog("删除失败，请重新删除！")
+      }
+    },
+
+    async getTabList({ commit, state }, id) {
       let list = [...state.list], tabList = []
       switch (id) {
         case 0:
@@ -34,32 +82,35 @@ const List = {
           break
         case 1:
           tabList = list.filter(item => {
-            return !item.isDone
+            return item.isDone === 0;
           })
           break
         default:
           tabList = list.filter(item => {
-            return item.isDone
+            return item.isDone === 1;
           })
           break
       }
-      commit(GET_TAB_ID, id)
-      commit(GET_TAB_LIST, tabList)
+      commit(HANDLE_TAB_ID, id)
+      commit(HANDLE_TAB_LIST, tabList)
     }
   },
 
   mutations: {
-    handleAdd(state, item) {
-      state.list.push(item)
-    },
-    handleDone(state, list) {
+    handleTableData(state, list) {
       state.list = [...list]
     },
-    getTabList(state, list) {
+
+    handelTabList(state, list) {
       state.tabList = [...list]
     },
-    getTabId(state, id) {
+
+    handelTabId(state, id) {
       state.tab = id
+    },
+
+    handleLoading(state, type) {
+      state.loading = type
     }
   },
 }

@@ -59,7 +59,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions(["handleDone", "getTabList"]),
+    ...mapActions(["handleDone", "handleDelete", "getTabList", "getTableDataList"]),
     details(val) {
       Dialog({
         message: val,
@@ -68,17 +68,19 @@ export default {
         showConfirmButton: false
       }).catch(() => {});
     },
+
     handle(instance, name) {
       Dialog.confirm({
         message: "确定进行此项操作吗？",
         width: 260
       })
         .then(() => {
-          this.handleDone(this.tabList[name].id);
+          this.tabList[name].isDone === 0 ? this.handleDone(this.tabList[name].id) : this.handleDelete(this.tabList[name].id)
           instance.close();
         })
         .catch(() => {});
     },
+
     beforeClose({ position, instance, name }) {
       switch (position) {
         case "outside":
@@ -96,7 +98,7 @@ export default {
   },
   created() {},
   mounted() {
-    this.getTabList(0);
+    this.getTableDataList();
   }
 };
 </script>
