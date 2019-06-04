@@ -10,28 +10,39 @@
     >
       <van-tab v-for="index in tabs" :title="index" :key="index">
         <Notice type="item" />
-        <van-swipe-cell
-          class="item animated fadeInDown"
-          v-for="(item,i) in tabList"
-          :key="i"
-          :before-close="beforeClose"
-          :name="i"
-        >
-          <div
-            class="content"
-            @click="details(item.value)"
-            :style="{color: item.isDone ? 'gray' : '#0F4c81'}"
+        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+          <van-list
+            v-model="loading"
+            :finished="finished"
+            :error.sync="error"
+            error-text="请求失败，点击重新加载"
+            finished-text="没有更多了"
+            @load="onLoad"
           >
-            <span style="margin-right: 7px">{{ i+1+'.' }}</span>
-            <span class="text">{{ item.value }}</span>
-          </div>
-          <template slot="right" v-if="!item.isDone">
-            <van-button class="btn" square type="primary" text="完成" />
-          </template>
-          <template slot="right" v-if="item.isDone">
-            <van-button class="btn" square type="danger" text="删除" />
-          </template>
-        </van-swipe-cell>
+            <van-swipe-cell
+              class="item animated fadeInDown"
+              v-for="(item,i) in tabList"
+              :key="i"
+              :before-close="beforeClose"
+              :name="i"
+            >
+              <div
+                class="content"
+                @click="details(item.value)"
+                :style="{color: item.isDone ? 'gray' : '#0F4c81'}"
+              >
+                <span style="margin-right: 7px">{{ i+1+'.' }}</span>
+                <span class="text">{{ item.value }}</span>
+              </div>
+              <template slot="right" v-if="!item.isDone">
+                <van-button class="btn" square type="primary" text="完成" />
+              </template>
+              <template slot="right" v-if="item.isDone">
+                <van-button class="btn" square type="danger" text="删除" />
+              </template>
+            </van-swipe-cell>
+          </van-list>
+        </van-pull-refresh>
       </van-tab>
     </van-tabs>
   </div>
@@ -49,7 +60,12 @@ export default {
   data() {
     return {
       tabs: ["全部事项", "未完成", "已完成"],
-      active: 0
+      active: 0,
+      loading: false,
+      finished: false,
+      refreshing: false,
+      next_key: "",
+      error: false
     };
   },
   computed: {
@@ -59,7 +75,12 @@ export default {
     })
   },
   methods: {
-    ...mapActions(["handleDone", "handleDelete", "getTabList", "getTableDataList"]),
+    ...mapActions([
+      "handleDone",
+      "handleDelete",
+      "getTabList",
+      "getTableDataList"
+    ]),
     details(val) {
       Dialog({
         message: val,
@@ -75,7 +96,9 @@ export default {
         width: 260
       })
         .then(() => {
-          this.tabList[name].isDone === 0 ? this.handleDone(this.tabList[name].id) : this.handleDelete(this.tabList[name].id)
+          this.tabList[name].isDone === 0
+            ? this.handleDone(this.tabList[name].id)
+            : this.handleDelete(this.tabList[name].id);
           instance.close();
         })
         .catch(() => {});
@@ -94,12 +117,48 @@ export default {
     },
     tabChange(id) {
       this.getTabList(id);
+    },
+
+    onLoad() {
+      this.getList();
+    },
+
+    onRefresh() {
+      // 清空列表数据
+      this.finished = false;
+
+      // 重新加载数据
+      // 将 loading 设置为 true，表示处于加载状态
+      //this.loading = true;
+      this.next_key = "";
+      this.refreshing = true;
+      this.error = false;
+      this.onLoad();
+    },
+
+    getList() {
+      this.getTableDataList({
+        next_key: this.next_key,
+        refreshing: this.refreshing
+      }).then(res => {
+        this.refreshing = false;
+        // 加载状态结束
+        if (res.status === 200) {
+          //this.loading = false;
+          this.next_key = res.next_key;
+          if (!res.more) {
+            this.finished = true;
+          }
+        } else if (res.status === 500) {
+          this.error = true;
+        }
+      });
     }
   },
-  created() {},
-  mounted() {
-    this.getTableDataList();
-  }
+  created() {
+    this.getList();
+  },
+  mounted() {}
 };
 </script>
 

@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
-import createPersistedState from "vuex-persistedstate" //持久化存储
+//import createPersistedState from "vuex-persistedstate" //持久化存储
 import List from './modules/list'
 
 Vue.use(Vuex)
@@ -8,7 +8,7 @@ const store = new Vuex.Store({
   modules: {
     List
   },
-  plugins: [createPersistedState({
+  /* plugins: [createPersistedState({
     storage: window.sessionStorage,
     reducer(val) {
       return {
@@ -18,7 +18,7 @@ const store = new Vuex.Store({
         }
       }
     }
-  })]
+  })] */
 })
 
 export default store

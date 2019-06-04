@@ -38,7 +38,7 @@ export const pushAction = async (props) => {
   }
 }
 
-export const getTableData = async (table, pageNo = 1, pageSize = 20) => {
+export const getTableData = async (table, pageKey, pageSize = 15) => {
 
   try {
     const res = await rpc.get_table_rows({
@@ -49,7 +49,8 @@ export const getTableData = async (table, pageNo = 1, pageSize = 20) => {
       limit: pageSize,
       reverse: true,
       key_type: 'i64',
-      index_position: pageNo
+      upper_bound: pageKey,  //索引参数的上限是什么
+      index_position: 1  //使用的主索引
     })
     console.log('获取到结果', res)
     return res

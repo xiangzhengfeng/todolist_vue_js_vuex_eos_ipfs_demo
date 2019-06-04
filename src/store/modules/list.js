@@ -8,13 +8,13 @@ const List = {
     list: [],
     tabList: [],
     tab: 0,
-    loading: false
+    loading: false,
   },
 
   actions: {
-    async getTableDataList({ dispatch, commit, state }) {
+    async getTableDataList({ dispatch, commit, state }, { next_key, refreshing }) {
       toast.show()
-      const res = await getTableData('todotable');
+      const res = await getTableData('todotable', next_key);
       if (res.rows) {
         let list = []
         res.rows.filter((item, index) => {
@@ -26,13 +26,22 @@ const List = {
           }
         });
         toast.hide()
-        commit(HANDLE_TABLE_DATA, list)
+        refreshing ? commit(HANDLE_TABLE_DATA, list) : commit(HANDLE_TABLE_DATA, state.list.concat(list))
+        dispatch(GET_TAB_LIST, state.tab)
+        return {
+          more: res.more,
+          next_key: res.next_key,
+          status: 200
+        }
       } else {
         toast.dialog("加载区块链数据失败，请检查网络后再刷新！").then(() => {
-          commit(HANDLE_TABLE_DATA, [])
+          commit(HANDLE_TABLE_DATA, state.list)
         })
+        dispatch(GET_TAB_LIST, state.tab)
+        return {
+          status: 500
+        }
       }
-      dispatch(GET_TAB_LIST, state.tab)
     },
 
     async handleAdd({ dispatch }, value) {
