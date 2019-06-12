@@ -65,7 +65,8 @@ export default {
       finished: false,
       refreshing: false,
       next_key: "",
-      error: false
+      error: false,
+      tab: 0
     };
   },
   computed: {
@@ -116,6 +117,9 @@ export default {
       }
     },
     tabChange(id) {
+      this.tab = id
+      this.refreshing = false;
+      this.finished = true
       this.getTabList(id);
     },
 
@@ -131,20 +135,26 @@ export default {
       // 将 loading 设置为 true，表示处于加载状态
       //this.loading = true;
       this.next_key = "";
-      this.refreshing = true;
       this.error = false;
-      this.onLoad();
+      this.getList();
     },
 
     getList() {
+      if(this.tab !== 0){
+        this.refreshing = false;
+        this.loading = false;
+        this.finished = true
+        return
+      }
+      this.loading = true;
+      this.refreshing = false;
       this.getTableDataList({
         next_key: this.next_key,
         refreshing: this.refreshing
       }).then(res => {
-        this.refreshing = false;
         // 加载状态结束
         if (res.status === 200) {
-          //this.loading = false;
+          this.loading = false;
           this.next_key = res.next_key;
           if (!res.more) {
             this.finished = true;

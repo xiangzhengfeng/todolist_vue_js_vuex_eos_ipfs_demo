@@ -50,7 +50,7 @@ const List = {
       toast.hide()
       if (res.transaction_id) {
         toast.dialog("新增成功！交易哈希：\n" + res.transaction_id).then(() => {
-          dispatch(GET_TABLE_DATA_LIST)
+          dispatch(GET_TABLE_DATA_LIST, { next_key: '', refreshing: true })
         })
       } else {
         toast.dialog("新增事项失败，请重新添加！")
@@ -63,7 +63,7 @@ const List = {
       toast.hide()
       if (res.transaction_id) {
         toast.dialog("已完成！交易哈希：\n" + res.transaction_id).then(() => {
-          dispatch(GET_TABLE_DATA_LIST)
+          dispatch(GET_TABLE_DATA_LIST, { next_key: '', refreshing: true })
         })
       } else {
         toast.dialog("操作失败，请重新完成该事项！")
@@ -76,7 +76,7 @@ const List = {
       toast.hide()
       if (res.transaction_id) {
         toast.dialog("已删除！交易哈希：\n" + res.transaction_id).then(() => {
-          dispatch(GET_TABLE_DATA_LIST)
+          dispatch(GET_TABLE_DATA_LIST, { next_key: '', refreshing: true })
         })
       } else {
         toast.dialog("删除失败，请重新删除！")
