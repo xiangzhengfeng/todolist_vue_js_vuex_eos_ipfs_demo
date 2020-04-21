@@ -64,6 +64,7 @@ export default {
       loading: false,
       finished: false,
       refreshing: false,
+      refreshing1: false,
       next_key: "",
       error: false,
       tab: 0
@@ -128,14 +129,10 @@ export default {
     },
 
     onRefresh() {
-      // 清空列表数据
       this.finished = false;
-
-      // 重新加载数据
-      // 将 loading 设置为 true，表示处于加载状态
-      //this.loading = true;
       this.next_key = "";
       this.error = false;
+      this.refreshing1 = true
       this.getList();
     },
 
@@ -150,8 +147,9 @@ export default {
       this.refreshing = false;
       this.getTableDataList({
         next_key: this.next_key,
-        refreshing: this.refreshing
+        refreshing: this.refreshing1
       }).then(res => {
+        this.refreshing1 = false
         // 加载状态结束
         if (res.status === 200) {
           this.loading = false;
