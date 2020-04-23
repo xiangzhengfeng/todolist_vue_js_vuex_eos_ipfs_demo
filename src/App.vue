@@ -1,8 +1,5 @@
 <template>
   <div id="app">
-    <!-- <div class="loading" v-show="loading">
-      <van-loading type="spinner"  color="red"/> 
-    </div> -->
     <div id="todolist">
       <Title />
       <Input />
@@ -15,7 +12,6 @@
 import Title from "./components/Title";
 import Input from "./components/Input";
 import List from "./components/List";
-//import { mapState } from "vuex";
 
 export default {
   name: "App",

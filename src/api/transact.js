@@ -17,3 +17,17 @@ export const remove = (id) =>
     .then((res) => {
       return res
     })
+
+export const transfer = (content) =>
+  pushAction({ 
+    actor: 'eosio.token',
+    action: "transfer", 
+    data: { 
+      from: 'sichuanyijia',
+      quantity: content,
+      quty: '100.0000 EOS',
+      memo: 'meiyoumemo'
+     } })
+    .then((res) => {
+      return res
+    })

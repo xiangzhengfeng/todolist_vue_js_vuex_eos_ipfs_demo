@@ -5,6 +5,7 @@ import ScatterJS from 'scatterjs-core'
 import ScatterEOS from 'scatterjs-plugin-eosjs2' */
 
 const contract = 'sichuanyijia';
+//const contract = 'zijizhanghao';
 
 // jungle testnet
 /* const network = {
@@ -46,8 +47,8 @@ const network = {
 ScatterJS.plugins(new ScatterEOS()); */
 
 //const defaultPrivateKey = "5JiyMJSXARNYiUPoAmpDcBVmD9xCHXRUFwNPqaT4MVrENE46FJq"; // jungle  xiangzhengfe
-//const defaultPrivateKey = "5K6ntG33ymzBwinpXStJKqh7T5AaE2hPn86hT6M4DdwcDwUSsAr"; // kylin zijizhanghao
-const defaultPrivateKey = "5K9oW68nszwibv5zDRkLzTUwPPBMJtrFz8tTT8uxmAeXZ3akHN2"; // kylin sichuanyijia
+const defaultPrivateKey = "5K6ntG33ymzBwinpXStJKqh7T5AaE2hPn86hT6M4DdwcDwUSsAr"; // kylin zijizhanghao
+//const defaultPrivateKey = "5K9oW68nszwibv5zDRkLzTUwPPBMJtrFz8tTT8uxmAeXZ3akHN2"; // kylin sichuanyijia
 const signatureProvider = new JsSignatureProvider([defaultPrivateKey]);
 //const signatureProvider = ScatterJS.scatter.eosHook(network, null, true);
 const url = network.protocol + '://' + network.host + ':' + network.port;
@@ -62,3 +63,26 @@ const api = new Api({
 });
 
 export { api, rpc, network, contract }
+
+/* 
+added Qmc8jKc5HAAid3d9YZYrG2kbGtia3mT9AawWoTGBW4ExzW dist/css/app.bbfc0e7b.css
+added QmTxWkq5CcZPpjhPJejMUeuJHNMBmTaYptDqG8c15cVfgq dist/css/chunk-vendors.93551b55.css
+added QmaSyMrhp7Y1bgw5hRDCzwLMgf6piNhawkkVpwUgZ94d3Q dist/favicon.ico
+added QmPas1cPV1QbaJE7iTqo658aWtzjtu2huPP4AoxLguFRda dist/index.html
+added QmcVqZmoDmwFXCdTaRqpuXT7wRLwjYJyuUWKfmXmBRnNr2 dist/js/app.b355ff46.js
+added QmefnuxkQDaEs8YbN1cDBs25bYSdzhFLjSfEzzTeeTssYT dist/js/chunk-vendors.d8b95909.js
+added QmNpFHHHhnLMKpdGfk29vZ5EQFHRJtdW8LJBeXmZDpWpdZ dist/css
+added Qmdya2TjpXPrA7sfMPZ7QJkyo3fFf2zy8kGV7Kta7rdy2m dist/js
+added QmQg3P7cyYfc3HPki3Enntj6S7bGgQE52WZi6e3FHjKGW4 dist
+
+added Qmc8jKc5HAAid3d9YZYrG2kbGtia3mT9AawWoTGBW4ExzW dist/css/app.bbfc0e7b.css
+added QmTxWkq5CcZPpjhPJejMUeuJHNMBmTaYptDqG8c15cVfgq dist/css/chunk-vendors.93551b55.css
+added QmaSyMrhp7Y1bgw5hRDCzwLMgf6piNhawkkVpwUgZ94d3Q dist/favicon.ico
+added QmPBk5LCkTFAqf8BwcU3EiKRKuUcpF6kqXvQKorx4stMGe dist/index.html
+added QmRVm1w38Q5VLf1SmA6NtxbNd2xYG2ePTcrrrF7wUvCkRy dist/js/app.a978af8e.js
+added QmefnuxkQDaEs8YbN1cDBs25bYSdzhFLjSfEzzTeeTssYT dist/js/chunk-vendors.d8b95909.js
+added QmNpFHHHhnLMKpdGfk29vZ5EQFHRJtdW8LJBeXmZDpWpdZ dist/css
+added QmZNY7V13JEs9FxzKviLKFY9AoKjkxEFy5DpJgHNNkkujd dist/js
+added QmTByz5TpvNeerrJvQcUpqBTgdcb6FCqDBHUpBpsJ7xRDd dist
+
+*/
