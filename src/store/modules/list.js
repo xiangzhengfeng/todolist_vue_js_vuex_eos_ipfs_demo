@@ -1,5 +1,5 @@
 import { HANDLE_TABLE_DATA, HANDLE_TAB_LIST, GET_TAB_LIST, HANDLE_TAB_ID, GET_TABLE_DATA_LIST } from '../mutation-types'
-import { add, done, remove, transfer } from "../../api/transact"
+import { add, done, remove } from "../../api/transact"
 import { getTableData } from "../../api/fetch"
 import { toast } from "../../api/toast"
 
@@ -45,9 +45,8 @@ const List = {
     },
 
     async handleAdd({ dispatch }, value) {
-      //transfer(value)
       toast.info()
-      const res = await transfer(value)
+      const res = await add(value)
       toast.hide()
       if (res.transaction_id) {
         toast.dialog("新增成功！交易哈希：\n" + res.transaction_id).then(() => {
