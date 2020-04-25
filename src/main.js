@@ -4,6 +4,10 @@ import Vant from 'vant';
 import store from './store/index'
 import 'vant/lib/index.css';
 import 'animate.css'
+import VueIpfs from './plugins/vue-ipfs';
+
+// Load our IPFS plugin.
+Vue.use(VueIpfs)
 
 Vue.use(Vant)
 Vue.config.productionTip = false

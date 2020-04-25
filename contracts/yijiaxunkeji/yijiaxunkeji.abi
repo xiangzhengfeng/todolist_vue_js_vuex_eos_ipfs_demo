@@ -21,7 +21,7 @@
                 },
                 {
                     "name": "is_done",
-                    "type": "bool"
+                    "type": "uint64"
                 }
             ]
         },
@@ -43,7 +43,7 @@
                 },
                 {
                     "name": "is_done",
-                    "type": "bool"
+                    "type": "uint64"
                 }
             ]
         },

@@ -23,7 +23,29 @@ export default {
   data() {
     return {};
   },
-  methods: {}
+  methods: {
+    async getIpfsNodeInfo() {
+      try {
+        // Await for ipfs node instance.
+        const ipfs = await this.$ipfs;
+        // Call ipfs `id` method.
+        // Returns the identity of the Peer.
+        const { agentVersion, id } = await ipfs.id();
+        console.log(ipfs)
+        /* this.agentVersion = agentVersion;
+        this.id = id;
+        // Set successful status text.
+        this.status = "Connected to IPFS =)"; */
+      } catch (err) {
+        // Set error status text.
+        //this.status = `Error: ${err}`;
+        console.log('err', err)
+      }
+    }
+  },
+  created() {
+    this.getIpfsNodeInfo();
+  }
 };
 </script>
 
@@ -38,6 +60,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+  width: 350px;
   background-color: #0f4c81;
   position: relative;
 }
@@ -49,7 +72,7 @@ export default {
   opacity: 0.95;
 }
 
-.loading{
+.loading {
   background-color: rgba(0, 0, 0, 0);
   width: 100%;
   height: 100%;

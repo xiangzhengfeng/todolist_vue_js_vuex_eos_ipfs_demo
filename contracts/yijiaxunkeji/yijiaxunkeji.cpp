@@ -71,7 +71,7 @@ public:
     uint64_t id;              //自增id
     std::string content;      //内容
     time_point_sec time;      //创建时间
-    bool is_done;             //是否完成
+    uint64_t is_done;             //是否完成
 
     uint64_t primary_key() const { return id; }
   };
