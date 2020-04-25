@@ -1,4 +1,4 @@
-# todolist_vue_js_vuex_eos_demo
+# todolist_vue_js_vuex_eos_ipfs_demo
 
 ## Project setup
 ```
