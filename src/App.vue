@@ -23,11 +23,6 @@ export default {
   data() {
     return {};
   },
- /*  computed: {
-    ...mapState({
-      loading: state => state.List.loading
-    })
-  }, */
   methods: {}
 };
 </script>

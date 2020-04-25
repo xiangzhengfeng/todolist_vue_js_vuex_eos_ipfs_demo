@@ -47,7 +47,7 @@ const List = {
     async handleAdd({ dispatch }, value) {
       //transfer(value)
       toast.info()
-      const res = await add(value)
+      const res = await transfer(value)
       toast.hide()
       if (res.transaction_id) {
         toast.dialog("新增成功！交易哈希：\n" + res.transaction_id).then(() => {
