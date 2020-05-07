@@ -1,0 +1,32 @@
+{
+	"manifest_version": 2,
+	"name": "To Do List Dapp",
+	"version": "1.0",
+	"description": "To Do List Dapp Chrome Extensions Demo",
+	"author": "Hsiang",
+	"icons": {
+		"48": "icon.png",
+		"128": "icon.png"
+	},
+	"browser_action": {
+		"default_icon": "icon.png",
+		"default_popup": "index.html"
+	},
+	"content_scripts": [
+		{
+			"all_frames": true,
+			"js": [
+				"content-script.js"
+			],
+			"matches": [
+				"file://*/*",
+				"http://*/*",
+				"https://*/*"
+			],
+			"run_at": "document_start"
+		}
+	],
+	"web_accessible_resources": [
+		"inpage.js"
+	]
+}

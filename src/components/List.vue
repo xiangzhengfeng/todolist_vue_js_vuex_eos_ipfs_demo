@@ -28,7 +28,7 @@
             >
               <div
                 class="content"
-                @click="details(item.value)"
+                @dblclick="details(item.value)"
                 :style="{color: item.isDone ? 'gray' : '#0F4c81'}"
               >
                 <span style="margin-right: 7px">{{ i+1+'.' }}</span>
@@ -185,7 +185,7 @@ export default {
   font-size: 16px;
 }
 .content {
-  width: calc(90vw - 30px);
+  width: 258px;
   padding: 10px;
   min-height: 30px;
   display: flex;

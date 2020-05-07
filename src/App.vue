@@ -1,10 +1,12 @@
 <template>
   <div id="app">
+    <div class="position"></div>
     <div id="todolist">
       <Title />
       <Input />
       <List />
     </div>
+    <div class="position position-down"></div>
   </div>
 </template>
 
@@ -23,7 +25,16 @@ export default {
   data() {
     return {};
   },
-  methods: {}
+  methods: {},
+  created() {},
+  mounted() {
+    /* window.onload = function() {
+      console.log(window.ToDoListExtension);
+      if (typeof window.ToDoListExtension != "undefined") {
+        alert("ToDoList 扩展存在");
+      }
+    }; */
+  }
 };
 </script>
 
@@ -38,8 +49,27 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+  width: 320px;
   background-color: #0f4c81;
   position: relative;
+}
+
+.position {
+  height: 20px;
+  width: 320px;
+  background-color: #0f4c81;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.position-down {
+  top: calc(100vh - 20px);
+}
+
+body::-webkit-scrollbar {
+  display: none !important;
 }
 
 #todolist {
@@ -49,7 +79,7 @@ export default {
   opacity: 0.95;
 }
 
-.loading{
+.loading {
   background-color: rgba(0, 0, 0, 0);
   width: 100%;
   height: 100%;

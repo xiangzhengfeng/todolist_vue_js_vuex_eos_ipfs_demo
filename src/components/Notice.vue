@@ -4,7 +4,7 @@
     <div
       class="tip animated fadeInRight"
       v-if="list.length !== 0 &&  type === 'list'"
-    >{{ '向左滑动可进行操作待办事项，点击可查看详情' }}</div>
+    >{{ '向左滑动可进行操作待办事项，双击可查看详情' }}</div>
     <div
       class="tip animated fadeInDown"
       style="color: gray;"

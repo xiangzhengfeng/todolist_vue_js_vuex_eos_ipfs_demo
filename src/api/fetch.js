@@ -2,18 +2,18 @@ import { api, contract, rpc } from "./config"
 
 export const pushAction = async (props) => {
   const {
-    contract = contract,
     actor = contract,
     permission = "active",
     action,
     data,
   } = props
+  console.log(actor, permission, action, data)
   try {
     const result = await api.transact(
       {
         actions: [
           {
-            account: contract,
+            account: actor,
             name: action,
             authorization: [
               {
