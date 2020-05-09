@@ -49,14 +49,14 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
-  width: 320px;
+  width: 100vw;
   background-color: #0f4c81;
   position: relative;
 }
 
 .position {
   height: 20px;
-  width: 320px;
+  width: 100vw;
   background-color: #0f4c81;
   position: fixed;
   top: 0;

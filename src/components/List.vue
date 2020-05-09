@@ -185,7 +185,7 @@ export default {
   font-size: 16px;
 }
 .content {
-  width: 258px;
+  width: calc(90vw - 30px);
   padding: 10px;
   min-height: 30px;
   display: flex;
