@@ -16,10 +16,6 @@
                     "type": "string"
                 },
                 {
-                    "name": "time",
-                    "type": "time_point_sec"
-                },
-                {
                     "name": "is_done",
                     "type": "uint64"
                 }
@@ -30,20 +26,8 @@
             "base": "",
             "fields": [
                 {
-                    "name": "id",
-                    "type": "uint64"
-                },
-                {
                     "name": "content",
                     "type": "string"
-                },
-                {
-                    "name": "time",
-                    "type": "time_point_sec"
-                },
-                {
-                    "name": "is_done",
-                    "type": "uint64"
                 }
             ]
         },
