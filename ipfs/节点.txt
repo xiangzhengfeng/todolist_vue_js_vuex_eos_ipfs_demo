@@ -1,0 +1,28 @@
+PS C:\Users\web\Desktop\go-ipfs> .\ipfs.exe init
+initializing IPFS node at C:\Users\web\.ipfs
+generating 2048-bit RSA keypair...done
+peer identity: QmPPA1zgpEgPbtFneF6FAYFxsjTskLLjcheQ7wKkpUGa4s
+to get started, enter:
+
+        ipfs cat /ipfs/QmS4ustL54uo8FzR9455qaxZwuMiUhyvMcX9Ba8nUH4uVv/readme
+
+PS C:\Users\web\Desktop\go-ipfs> .\ipfs.exe id
+{
+        "ID": "QmPPA1zgpEgPbtFneF6FAYFxsjTskLLjcheQ7wKkpUGa4s",
+        "PublicKey": "CAASpgIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC7QUJ+mGUxZz0dh3gDej3lQ0Tbmyd3PSfl3Rb/MLVUZkAtCcB5BGuIiyoohTcHHIxe1VMGr4obMmGgAkWWe2jr1SOKDixKkTA7xeKvWzFew+oo7oOX2p5oXvnyrX86qDca83FA69cpIQfjqPkezwLhBZtbREv6+0+kcX9sEdOUg7ywq66f0U4URjtUhM/vXEk++NJUyR6efRyDg+7DQfEFqtMmc6/ZxTyDAim7zfPQ6UFghgt7cp1WrGxRY6691yzQsEB5b7YR8qIiYU7VxOYtlun10CEOR7bkZ+MIRI1KEmGx641q4BIHeDb6kDgDteAEN9U7plctTz3WO6wvinzNAgMBAAE=",
+        "Addresses": null,
+        "AgentVersion": "go-ipfs/0.4.18/",
+        "ProtocolVersion": "ipfs/0.1.0"
+}
+
+{
+        "ID": "QmPPA1zgpEgPbtFneF6FAYFxsjTskLLjcheQ7wKkpUGa4s",
+        "PublicKey": "CAASpgIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC7QUJ+mGUxZz0dh3gDej3lQ0Tbmyd3PSfl3Rb/MLVUZkAtCcB5BGuIiyoohTcHHIxe1VMGr4obMmGgAkWWe2jr1SOKDixKkTA7xeKvWzFew+oo7oOX2p5oXvnyrX86qDca83FA69cpIQfjqPkezwLhBZtbREv6+0+kcX9sEdOUg7ywq66f0U4URjtUhM/vXEk++NJUyR6efRyDg+7DQfEFqtMmc6/ZxTyDAim7zfPQ6UFghgt7cp1WrGxRY6691yzQsEB5b7YR8qIiYU7VxOYtlun10CEOR7bkZ+MIRI1KEmGx641q4BIHeDb6kDgDteAEN9U7plctTz3WO6wvinzNAgMBAAE=",
+        "Addresses": [
+                "/ip6/::1/tcp/4001/ipfs/QmPPA1zgpEgPbtFneF6FAYFxsjTskLLjcheQ7wKkpUGa4s",
+                "/ip4/176.202.56.20/tcp/4001/ipfs/QmPPA1zgpEgPbtFneF6FAYFxsjTskLLjcheQ7wKkpUGa4s",
+                "/ip4/127.0.0.1/tcp/4001/ipfs/QmPPA1zgpEgPbtFneF6FAYFxsjTskLLjcheQ7wKkpUGa4s"
+        ],
+        "AgentVersion": "go-ipfs/0.4.18/",
+        "ProtocolVersion": "ipfs/0.1.0"
+}
