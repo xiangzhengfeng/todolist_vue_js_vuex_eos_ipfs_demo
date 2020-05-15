@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "daemon": "cd ipfs && ipfs daemon",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "cd ipfs && ipfs add -r dist"
   },
   "dependencies": {
     "@vant/touch-emulator": "^1.2.0",
